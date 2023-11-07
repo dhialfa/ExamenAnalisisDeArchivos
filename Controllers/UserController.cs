@@ -31,17 +31,29 @@ namespace Examen.Controllers
 
         // POST: User/Create
         [HttpPost]
-        public ActionResult Create(UserDAO user)
+        public ActionResult Create(UserDTO user)
         {
             try
             {
-                // TODO: Add insert logic here
-
-                return RedirectToAction(userDAO.CreateUser(user));
+                //esto es para la validacion de la creacion del usuario, si es correcto el formato
+                if (ModelState.IsValid)
+                {
+                    string result = userDAO.CreateUser(user);
+                    if (result == "Usuario creado correctamente")
+                    {
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", result);
+                    }
+                }
+                return View(user);
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                ModelState.AddModelError("", "Error: " + ex.Message);
+                return View(user);
             }
         }
 
