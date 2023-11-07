@@ -118,12 +118,13 @@ namespace Examen.Models.DAO
                 {
                     connection.Open();
 
-                    string updateUserQuery = "UPDATE Users SET name = @pName, email = @pEmail WHERE id = @pId";
+                    string updateUserQuery = "UPDATE Users SET name = @pName, email = @pEmail WHERE id = @pId\r\n";
                     using (MySqlCommand command = new MySqlCommand(updateUserQuery, connection))
                     {
                         command.Parameters.AddWithValue("@pId", id);
                         command.Parameters.AddWithValue("@pName", user.Name);
                         command.Parameters.AddWithValue("@pEmail", user.Email);
+
 
                         int rowsAffected = command.ExecuteNonQuery();
 

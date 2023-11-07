@@ -89,7 +89,7 @@ namespace Examen.Controllers
         // GET: User/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            return View(userDAO.ReadUser(id));
         }
 
         // POST: User/Delete/5
@@ -107,7 +107,7 @@ namespace Examen.Controllers
                     if (existingUser != null)
                     {
                         // Verificar que los datos del usuario en `user` coincidan con los datos existentes antes de eliminarlo.
-                        if (existingUser.Name == user.Name && existingUser.Email == user.Email)
+                        if (existingUser.Id == user.Id )
                         {
                             string result = userDAO.DeleteUser(id);
                             if (result == "Success")
